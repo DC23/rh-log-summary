@@ -52,8 +52,10 @@ if __name__ == '__main__':
                 continue
 
     # Final report
-    print('Source log file: {0}'.format(args.log_file))
-    print('Bad log lines (skipped): {0}'.format(bad_log_lines))
+    if args.verbose:
+        print('Source log file: {0}'.format(args.log_file))
+    if bad_log_lines > 0:
+        print('Bad log lines (skipped): {0}'.format(bad_log_lines))
     print('Threshold: {0} days'.format(args.atime_threshold))
     print('File count: {0}'.format(total_files))
     print('Total freed: {0}'.format(approximate_size(total_bytes)))
