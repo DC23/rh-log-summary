@@ -38,7 +38,10 @@ if __name__ == '__main__':
                     total_bytes += size_bytes
                     total_files += 1
 
-                    # filename = re_filename.match(line).group(1)
+                    if args.verbose:
+                        filename = re_filename.match(line).group(1)
+                        dirs = filename.split('/')
+                        print(dirs)
             except:
                 if args.verbose:
                     e = sys.exc_info()[0]
