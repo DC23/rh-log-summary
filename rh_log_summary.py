@@ -28,6 +28,7 @@ if __name__ == '__main__':
     bad_log_lines = 0
     total_files = 0
     record_count = 0
+    directory_totals = {}
 
     # parse the log line by line
     with open(args.log_file) as f:
@@ -43,10 +44,13 @@ if __name__ == '__main__':
                     total_bytes += size_bytes
                     total_files += 1
 
-                    if args.verbose:
-                        filename = re_filename.match(line).group(1)
-                        dirs = filename.split('/')
-                        print(dirs)
+                    filename = re_filename.match(line).group(1)
+                    dirs = filename[1:].split('/')
+                    print(dirs)
+
+                    # I should be able to use the caesar0301/treelib package on GitHub
+                    # to build a tree from the file paths, and then use that to produce
+                    # per-directory reports
 
             except:
                 if args.verbose:
