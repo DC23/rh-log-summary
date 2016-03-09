@@ -1,5 +1,5 @@
-#!/bin/sh
-#SBATCH --job-name=Dry-run Purge log summariser
+#!/bin/bash -login
+#SBATCH --job-name=scratch2-purge-dry-run-summariser
 #SBATCH --account=astronomy856
 #SBATCH --partition=workq
 #SBATCH --nodes=1
