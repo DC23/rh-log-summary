@@ -33,7 +33,7 @@ if __name__ == '__main__':
     with open(args.log_file) as f:
         for line in f:
             record_count += 1
-            if record_count > args.max_records:
+            if args.max_records and record_count > args.max_records:
                 break
             try:
                 size_bytes = (int)(re_bytes.match(line).group(1))
