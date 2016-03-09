@@ -38,11 +38,10 @@ if __name__ == '__main__':
                     total_bytes += size_bytes
                     total_files += 1
 
-                    # filename = re_filename.match(line).group(1)
             except:
                 if args.verbose:
                     e = sys.exc_info()[0]
-                    print(e)
+                    print('Error parsing line {0}:\n\t{1}'.format(line, e))
 
                 bad_log_lines += 1
                 continue
