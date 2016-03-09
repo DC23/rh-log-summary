@@ -19,17 +19,22 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('-v', '--verbose', help='verbose output', action='store_true')
     parser.add_argument('-a', '--atime_threshold', default=30.0, type=float)
+    parser.add_argument('-m', '--max_records', default=None, type=int)
     parser.add_argument('log_file')
     args = parser.parse_args()
 
     # report variables
-    total_bytes = 0.0
+    total_bytes = 0
     bad_log_lines = 0
     total_files = 0
+    record_count = 0
 
     # parse the log line by line
     with open(args.log_file) as f:
         for line in f:
+            record_count += 1
+            if args.max_records and record_count > args.max_records:
+                break
             try:
                 size_bytes = (int)(re_bytes.match(line).group(1))
                 atime = (float)(re_atime.match(line).group(1))
@@ -42,10 +47,11 @@ if __name__ == '__main__':
                         filename = re_filename.match(line).group(1)
                         dirs = filename.split('/')
                         print(dirs)
+
             except:
                 if args.verbose:
                     e = sys.exc_info()[0]
-                    print(e)
+                    print('Error parsing line {0}:\n\t{1}'.format(line, e))
 
                 bad_log_lines += 1
                 continue
