@@ -23,7 +23,7 @@ if __name__ == '__main__':
     args = parser.parse_args()
 
     # report variables
-    total_bytes = 0.0
+    total_bytes = 0
     bad_log_lines = 0
     total_files = 0
 
