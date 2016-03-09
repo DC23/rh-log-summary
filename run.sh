@@ -14,7 +14,7 @@ LOG_FILE=/scratch2/PurgeTest
 MAX_RECORDS=10000
 
 aprun -n 1 \
-python ./rbh_log_summary.py \
+python ./rh_log_summary.py \
 --atime_threshold 30.0 \
 --max_records $MAX_RECORDS \
 $LOG_FILE
