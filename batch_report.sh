@@ -2,7 +2,7 @@
 module load python/2.7.10
 
 LOG_FILE=/scratch2/PurgeTest/askap_2016-05-26
-#LOG_FILE=/scratch2/PurgeTest/mwa_2016-03-03
+#LOG_FILE=/scratch2/PurgeTest/mwa_2016-05-26
 
 echo Report for $LOG_FILE
 echo ----------------
