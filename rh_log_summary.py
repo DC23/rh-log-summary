@@ -2,14 +2,15 @@
 ''' Generates summary reports from Robin Hood log files. '''
 
 import argparse
+import gzip
+import os
 import re
 import sys
 
 from humansize import approximate_size
 
 
-if __name__ == '__main__':
-
+def main():
     # Set up the regexes
     re_filename = re.compile(r".*Purged '([^']+)'")
     re_bytes = re.compile(r".*size=(\d+)")
@@ -29,8 +30,17 @@ if __name__ == '__main__':
     total_files = 0
     record_count = 0
 
+    # Default input file factory assumes a text file
+    input_file_factory = lambda f: open(f)
+
+     # If we have a gzip file, log it and replace the factory
+    _, ext = os.path.splitext(args.log_file)
+    if ext == '.gz':
+        print('Using gzip file open factory ...')
+        input_file_factory = lambda f: gzip.open(f, mode='rt')
+
     # parse the log line by line
-    with open(args.log_file) as f:
+    with input_file_factory(args.log_file) as f:
         for line in f:
             record_count += 1
             if args.max_records and record_count > args.max_records:
@@ -59,3 +69,6 @@ if __name__ == '__main__':
     print('Threshold: {0} days'.format(args.atime_threshold))
     print('File count: {0}'.format(total_files))
     print('Total freed: {0}'.format(approximate_size(total_bytes)))
+
+if __name__ == '__main__':
+    main()
